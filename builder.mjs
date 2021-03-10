@@ -67,4 +67,5 @@ const loop = () => {
     console.log(`Waiting ${updateEvery} ms to next update`);
 };
 
+loop();
 setInterval(loop, updateEvery);
