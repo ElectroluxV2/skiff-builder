@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd /home/ubuntu/skiff-builder || return 1
+pushd $cwd || return 1
 
 . ./variables.sh
 
@@ -8,6 +8,8 @@ if [ -d 'build' ]; then
 ls
 
   pushd build || (popd && exit 2)
+
+
   git pull origin main
 
 else
@@ -18,10 +20,11 @@ else
 fi
 
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-export PUPPETEER_EXECUTABLE_PATH='/snap/bin/chromium'
+export PUPPETEER_EXECUTABLE_PATH=$chromium
+export PATH=$path:PATH
 
 npm i
-npm run prod
+npm --scripts-prepend-node-path=true run prod
 
 lftp -u $user,$password $server -e "set ftp:ssl-allow no; mirror -R $local $remote; exit"
 
