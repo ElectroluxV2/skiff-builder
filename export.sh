@@ -14,6 +14,9 @@ fi
 
 cd 'build' || exit 1
 
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export PUPPETEER_EXECUTABLE_PATH='/snap/bin/chromium'
+
 npm i
 
 npm run prod
